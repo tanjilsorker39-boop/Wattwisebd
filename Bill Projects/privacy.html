@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — WattWise BD</title>
+<meta name="description" content="WattWise BD privacy: no accounts, no tracking, all data stays on your device.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z"/></symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></symbol>
+  <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"/></svg></span>
+      WattWise <span>BD</span>
+      <span class="beta-pill">Beta</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#solar">Solar</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="themeToggle" class="pill icon-button" type="button" aria-label="Toggle dark mode"><svg class="icon" aria-hidden="true"><use href="#icon-moon"/></svg></button>
+      <a href="app.html" class="btn btn-lime hide-mobile">Start Free Analysis →</a>
+    </div>
+  </div>
+</header>
+
+<main class="container legal-page">
+  <div class="app-hero">
+    <h1>Privacy</h1>
+    <p>The short version: your data stays on your device. We collect nothing.</p>
+  </div>
+
+  <section class="card legal-card">
+    <h2>What we collect</h2>
+    <p><strong>Nothing.</strong> WattWise BD has no accounts, no sign-in, no server that receives your bill, appliances, or personal information.</p>
+
+    <h2>Where your data lives</h2>
+    <p>Everything you enter — monthly bills, appliance lists, savings goals, solar assumptions, language, and theme — is stored in your browser's <strong>local storage</strong> on your own device. It never leaves your phone or computer.</p>
+
+    <h2>Bill image</h2>
+    <p>If you choose to upload a bill image for reference, it is only <strong>previewed in the page</strong> for your own viewing. It is <strong>not uploaded</strong>, not stored, not transmitted anywhere. Closing the tab discards it.</p>
+
+    <h2>Clearing your data</h2>
+    <p>You can wipe everything at any time:</p>
+    <ul>
+      <li>Click <strong>"Clear all saved data"</strong> in the app.</li>
+      <li>Or clear your browser's site data for this website.</li>
+    </ul>
+
+    <h2>Analytics</h2>
+    <p>WattWise BD does <strong>not</strong> currently run any third-party analytics, advertising, or tracking scripts. If we add privacy-friendly analytics in the future (e.g. Plausible or Umami), this page will be updated first, and the tool will remain cookie-free.</p>
+
+    <h2>Third parties</h2>
+    <p>The only external requests this site makes are:</p>
+    <ul>
+      <li><strong>Google Fonts</strong> — to load typography.</li>
+      <li><strong>jsDelivr CDN</strong> — to load the Chart.js library for the charts.</li>
+    </ul>
+    <p>Those requests go directly from your browser to those services. See their own privacy pages for details.</p>
+
+    <h2>Children</h2>
+    <p>This tool is not directed at children under 13. Since no data is collected, no personal information is processed.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the updated date below will change. Material changes will be highlighted on the homepage.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Email <a href="mailto:hello@wattwisebd.com">hello@wattwisebd.com</a>.</p>
+
+    <p class="disclaimer">Last updated: 2026</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container foot-grid">
+    <div>
+      <div class="logo">
+        <span class="logo-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"/></svg></span>
+        WattWise <span>BD</span>
+      </div>
+      <p>Appliance-level bill estimates &amp; solar planner for Bangladesh. Estimate-first.</p>
+    </div>
+    <div><h4>Product</h4>
+      <a href="app.html">App Dashboard</a>
+      <a href="app.html#solar">Solar Planner</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div><h4>Legal</h4>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div><h4>Contact</h4>
+      <p>hello@wattwisebd.com<br>Dhaka, Bangladesh</p>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    © 2026 WattWise BD. Estimates only. Not affiliated with any utility.
+  </div>
+</footer>
+
+<script>
+  const theme = localStorage.getItem('ww_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+</script>
+</body>
+</html>

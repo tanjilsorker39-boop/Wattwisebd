@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WattWise BD — App Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z"/></symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 3h.01"/></symbol>
+  <symbol id="icon-solar" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><path d="m2 12 10-7 10 7M4 12v8h16v-8M8 20v-5h8v5M2 22h20"/></symbol>
+  <symbol id="icon-document" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8m-8 4h8"/></symbol>
+  <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></symbol>
+  <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"/></symbol>
+</svg>
+
+<div id="scroll-progress" aria-hidden="true"><span></span></div>
+
+<div id="preloader" role="status" aria-live="polite" aria-label="Loading WattWise BD">
+  <div class="pre-bg-grid" aria-hidden="true"></div>
+  <div class="pre-glow" aria-hidden="true"></div>
+  <div class="loader-inner">
+    <div class="pre-bolt">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <defs>
+          <linearGradient id="preGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#b4f34a"/>
+            <stop offset="100%" stop-color="#22D3EE"/>
+          </linearGradient>
+        </defs>
+        <path class="pre-bolt-fill" d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" fill="url(#preGrad)"/>
+        <path class="pre-bolt-stroke" d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" fill="none" stroke="url(#preGrad)" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span class="pre-ring"></span>
+      <span class="pre-ring pre-ring-2"></span>
+    </div>
+    <div class="pre-word" aria-hidden="true">
+      <span>W</span><span>a</span><span>t</span><span>t</span><span>W</span><span>i</span><span>s</span><span>e</span>
+      <span class="pre-bd">BD</span>
+    </div>
+    <div class="pre-meter" aria-hidden="true"><span class="pre-meter-fill"></span></div>
+    <p class="pre-status">Initializing energy engine…</p>
+  </div>
+  <div class="pre-curtain pre-curtain-top" aria-hidden="true"></div>
+  <div class="pre-curtain pre-curtain-bottom" aria-hidden="true"></div>
+</div>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html"><span class="logo-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"/></svg></span> WattWise <span>BD</span> <small style="opacity:.6">App</small></a>
+    <nav class="nav-links"><a href="index.html">Home</a><a href="#setup">Setup</a><a href="#dashboard">Analysis</a><a href="#solar">Solar</a><a href="#history">History</a></nav>
+    <div class="nav-actions">
+      <button id="langToggle" class="pill" type="button">English</button>
+      <button id="themeToggle" class="pill icon-button" type="button" aria-label="Toggle dark mode"><svg class="icon" aria-hidden="true"><use href="#icon-moon"/></svg></button>
+      <a href="index.html" class="btn btn-ghost hide-mobile">← Back to Site</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="app-hero">
+    <h1>Your Energy Dashboard</h1>
+    <p>Estimates only. Actual usage and savings may vary.</p>
+  </div>
+
+  <section id="setup" class="section">
+    <h2>Bill Setup</h2>
+    <div class="grid2">
+      <div class="card">
+        <div class="form">
+          <label>Monthly Bill (BDT)<input type="number" id="billAmount" placeholder="4850"></label>
+          <label>Units Consumed (kWh)<input type="number" id="billUnits" placeholder="280"></label>
+          <label>Price per unit (BDT)<input type="number" id="pricePerUnit" value="12"></label>
+          <details class="estimate-settings">
+            <summary>Tariff estimate settings</summary>
+            <p class="muted">Illustrative defaults only. Set rates from your own utility bill; these are not official tariff rates.</p>
+            <div class="row2"><label>First slab limit (kWh)<input id="slabLimit1" type="number" min="0" value="75"></label><label>Second slab limit (kWh)<input id="slabLimit2" type="number" min="0" value="200"></label></div>
+            <div class="row2"><label>Rate up to first limit (BDT/kWh)<input id="slabRate1" type="number" min="0" step="0.01" value="12"></label><label>Rate up to second limit<input id="slabRate2" type="number" min="0" step="0.01" value="12"></label></div>
+            <label>Rate above second limit (BDT/kWh)<input id="slabRate3" type="number" min="0" step="0.01" value="12"></label>
+            <div class="row2"><label>Fixed monthly charge (BDT)<input id="fixedCharge" type="number" min="0" value="0"></label><label>VAT (%)<input id="vatPercent" type="number" min="0" max="100" step="0.1" value="0"></label></div>
+          </details>
+          <label>Upload bill image for reference<input id="billImage" type="file" accept="image/*"></label>
+          <div id="billImagePreview" class="bill-image-preview" aria-live="polite"></div>
+          <div class="row2">
+            <label>Month<input type="month" id="billMonth"></label>
+            <label>Connection<select id="connType"><option>Single Phase</option><option>Three Phase</option></select></label>
+          </div>
+          <div class="row2">
+            <label>Type<select id="homeType"><option>Home</option><option>Shop</option><option>Flat</option></select></label>
+            <label>Location<select id="location"><option>Dhaka</option><option>Chattogram</option><option>Rajshahi</option><option>Khulna</option><option>Sylhet</option></select></label>
+          </div>
+          <label>Savings Goal (BDT/month)<input type="number" id="goalInput" placeholder="1000"></label>
+          <button class="btn btn-lime wfull magnetic" onclick="saveBill()">Save Bill &amp; Analyze</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Appliance Builder</h3>
+        <p class="muted">Presets for Bangladesh — Watt × Hours × 30 / 1000</p>
+        <label class="season-select">Usage season<select id="seasonProfile"><option value="1">Typical month</option><option value="1.25">Summer (+25%)</option><option value="0.9">Winter (−10%)</option></select></label>
+        <div class="add-row">
+          <select id="preset">
+            <option value="">Custom</option>
+            <option value="AC 1.5 Ton|1500">AC 1.5 Ton — 1500W</option>
+            <option value="Refrigerator|150">Refrigerator — 150W</option>
+            <option value="Ceiling Fan|100">Ceiling Fan — 100W</option>
+            <option value="LED Light|12">LED Light — 12W</option>
+            <option value="Iron|1000">Iron — 1000W</option>
+            <option value="Water Pump|750">Water Pump — 750W</option>
+            <option value="TV LED|80">TV — 80W</option>
+            <option value="Computer|200">Computer — 200W</option>
+          </select>
+          <input id="aName" placeholder="Name"><input id="aWatt" type="number" placeholder="Watt"><input id="aQty" type="number" value="1"><input id="aHours" type="number" value="5" placeholder="Hrs">
+          <button class="btn btn-dark" id="applianceSubmit" onclick="addAppliance()">+ Add</button>
+          <button class="btn btn-ghost" id="cancelEdit" type="button" onclick="cancelApplianceEdit()" hidden>Cancel edit</button>
+        </div>
+        <div id="applianceList" class="app-list"></div>
+        <div class="empty" id="emptyApp">No appliances yet. Add AC, Fridge, Fans to see analysis.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="section">
+    <h2>AI Analysis Dashboard</h2>
+    <div class="stats">
+      <div class="card stat"><small>Est. Monthly kWh</small><b id="totalKwh">0</b><span>kWh</span></div>
+      <div class="card stat"><small>Est. Appliance Cost</small><b id="totalCost">BDT 0</b><span id="priceHint">at BDT 12/unit</span><small class="stat-secondary">Slab bill estimate</small><b id="tariffEstimate" class="stat-secondary-value">BDT 0</b></div>
+      <div class="card stat"><small>Actual Bill</small><b id="actualBill">BDT 0</b><span id="diffHint">—</span></div>
+      <div class="card stat lime"><small>Goal Progress</small><b id="goalText">—</b><div class="progress"><div id="goalBar"></div></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>Cost Breakdown</h3><canvas id="donutChart" height="220"></canvas></div>
+      <div class="card"><h3><svg class="icon" aria-hidden="true"><use href="#icon-alert"/></svg> Top 3 Bill Villains</h3><div id="villains"></div><h3 style="margin-top:16px">Savings Coach</h3><div id="savingsList"></div></div>
+    </div>
+  </section>
+
+  <section id="solar" class="section card">
+    <h2><svg class="icon" aria-hidden="true"><use href="#icon-solar"/></svg> Solar Planner</h2>
+    <p class="muted">Based on your usage. Est. generation = kW × 4.2 sun hrs × 30 × 0.8 efficiency. Estimates only.</p>
+    <div class="grid3">
+      <div class="solar-stat"><small>Recommended</small><b id="solarKw">0 kW</b><span>Rooftop</span></div>
+      <div class="solar-stat"><small>Est. Generation</small><b id="solarGen">0 kWh/mo</b><span>~4.2 hrs/day</span></div>
+      <div class="solar-stat"><small>Bill Reduction</small><b id="solarSave">BDT 0/mo</b><span id="solarPayback">Payback: —</span></div>
+    </div>
+    <div class="solar-bar"><div id="solarFill"></div></div>
+    <details class="estimate-settings solar-settings">
+      <summary>Adjust solar assumptions</summary>
+      <p class="muted">Starting values are planning assumptions, not a supplier quote or guaranteed output.</p>
+      <div class="row3"><label>Sun hours/day<input id="sunHours" type="number" min="1" max="12" step="0.1" value="4.2"></label><label>System performance (%)<input id="solarPerformance" type="number" min="1" max="100" value="75"></label><label>Installed cost per kW (BDT)<input id="costPerKw" type="number" min="0" step="1000" value="85000"></label></div>
+      <div class="row3"><label>Target offset of usage (%)<input id="solarOffsetTarget" type="number" min="10" max="100" step="5" value="80"></label></div>
+    </details>
+    <p id="solarExplain" class="muted"></p>
+  </section>
+
+  <section id="history" class="section">
+    <div class="grid2">
+      <div class="card"><h3><svg class="icon" aria-hidden="true"><use href="#icon-chart"/></svg> Bill History</h3><canvas id="lineChart" height="220"></canvas><div id="alertBox"></div></div>
+      <div class="card"><h3>History Table</h3><div id="historyTable"></div><button class="btn btn-ghost" onclick="clearHistory()">Clear History</button><button class="btn btn-ghost" onclick="exportCsv()">Export history CSV</button></div>
+    </div>
+  </section>
+
+  <section id="report" class="section card printable">
+    <div class="report-head"><h2>WattWise BD — Energy Report</h2><button class="btn btn-dark" onclick="window.print()"><svg class="icon" aria-hidden="true"><use href="#icon-document"/></svg> Print / Save PDF</button></div>
+    <div id="reportBody"></div>
+    <p class="disclaimer" style="text-align:center;margin-top:16px">Estimates only. Actual usage and savings may vary. Not a substitute for DPDC/DESCO/BPDB billing.</p>
+  </section>
+
+  <section id="privacy" class="section card privacy-panel">
+    <h2>Privacy &amp; data</h2>
+    <p>Your bills, appliances, and preferences are stored in this browser's local storage. The bill image is only previewed in this page and is not uploaded or saved.</p>
+    <button class="btn btn-ghost" onclick="clearAllData()">Clear all saved data</button>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
